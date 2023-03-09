@@ -1,10 +1,16 @@
+
 # Module 2 Capstone - TEnmo
+
+## Project Description
+This was the final capstone project of the Merit America Java Development program. The project runs a RESTful server on the back-end and a simple command line application on the front-end. This project really solidifed my understanding and competency with Spring and RESTful APIs. I especially learned a lot regarding integration and acceptance testing for Rest Controllers while doing research to write the AccountControllerTest.class. My main responsibilities included analyzing and debugging code written by other members of the team to ensure the application ran as intended and handled possible edge cases correctly. I also wrote the test classes that pertained to JdbcAccountDao and AccountController with the help of another group memeber. I found this project extremely enjoyable and a fantastic test of what I learened during my time in Merit America. Below you can find the rest of the REAME that was provided to us at the beginning of the project.
+
+## Original README contents
 
 Congratulations—you've landed a job with TEnmo, whose product is an online payment service for transferring "TE bucks" between friends. However, they don't have a product yet. You've been tasked with writing a RESTful API server and command-line application.
 
-## Use cases
+### Use cases
 
-### Required use cases
+#### Required use cases
 
 You should attempt to complete all of the following required use cases.
 
@@ -27,7 +33,7 @@ You should attempt to complete all of the following required use cases.
 5. As an authenticated user of the system, I need to be able to see transfers I have sent or received.
 6. As an authenticated user of the system, I need to be able to retrieve the details of any transfer based upon the transfer ID.
 
-### Optional use cases
+#### Optional use cases
 
 If you complete all of the required use cases and are looking for additional challenge, complete as many of the following optional use cases as you can.
 
@@ -47,14 +53,14 @@ If you complete all of the required use cases and are looking for additional cha
    4. If the transfer is approved, the requestee's account balance is decreased by the amount of the request.
    5. If the transfer is rejected, no account balance changes.
 
-## Sample screens
+### Sample screens
 
-### Use case 3: Current balance
+#### Use case 3: Current balance
 ```
 Your current account balance is: $9999.99
 ```
 
-### Use case 4: Send TE Bucks
+#### Use case 4: Send TE Bucks
 ```
 -------------------------------------------
 Users
@@ -68,7 +74,7 @@ Enter ID of user you are sending to (0 to cancel):
 Enter amount:
 ```
 
-### Use case 5: View transfers
+#### Use case 5: View transfers
 ```
 -------------------------------------------
 Transfers
@@ -80,7 +86,7 @@ ID          From/To                 Amount
 Please enter transfer ID to view details (0 to cancel): "
 ```
 
-### Use case 6: Transfer details
+#### Use case 6: Transfer details
 ```
 --------------------------------------------
 Transfer Details
@@ -93,7 +99,7 @@ Transfer Details
  Amount: $903.14
 ```
 
-### Use case 7: Requesting TE Bucks
+#### Use case 7: Requesting TE Bucks
 ```
 -------------------------------------------
 Users
@@ -107,7 +113,7 @@ Enter ID of user you are requesting from (0 to cancel):
 Enter amount:
 ```
 
-### Use case 8: Pending requests
+#### Use case 8: Pending requests
 ```
 -------------------------------------------
 Pending Transfers
@@ -119,7 +125,7 @@ ID          To                     Amount
 Please enter transfer ID to approve/reject (0 to cancel): "
 ```
 
-### Use case 9: Approve or reject pending transfer
+#### Use case 9: Approve or reject pending transfer
 ```
 1: Approve
 2: Reject
@@ -128,11 +134,11 @@ Please enter transfer ID to approve/reject (0 to cancel): "
 Please choose an option:
 ```
 
-## Database schema
+### Database schema
 
 ![Database schema](./img/Tenmo_erd.png)
 
-### `tenmo_user` table
+#### `tenmo_user` table
 
 Stores the login information for users of the system.
 
@@ -143,7 +149,7 @@ Stores the login information for users of the system.
 | `password_hash` | Hashed version of the user's password                                          |
 | `role`          | Name of the user's role                                                        |
 
-### `account` table
+#### `account` table
 
 Stores the accounts of users in the system.
 
@@ -153,7 +159,7 @@ Stores the accounts of users in the system.
 | `user_id`       | Foreign key to the `users` table; identifies user who owns account |
 | `balance`       | The amount of TE bucks currently in the account                    |
 
-### `transfer_type` table
+#### `transfer_type` table
 
 Stores the types of transfers that are possible.
 
@@ -169,7 +175,7 @@ There are two types of transfers:
 | 1                  | Request              | Identifies transfer where a user requests money from another user      |
 | 2                  | Send                 | Identifies transfer where a user sends money to another user           |
 
-### `transfer_status` table
+#### `transfer_status` table
 
 Stores the statuses of transfers that are possible.
 
@@ -186,7 +192,7 @@ There are three statuses of transfers:
 | 2                    | Approved               | Identifies transfer that has been approved and occurred                                |
 | 3                    | Rejected               | Identifies transfer that wasn't approved                                               |
 
-### `transfer` table
+#### `transfer` table
 
 Stores the transfers of TE bucks.
 
@@ -201,11 +207,11 @@ Stores the transfers of TE bucks.
 
 > Note: there are two check constraints in the DDL that creates the `transfer` table. Be sure to take a look at `tenmo.sql` to understand these constraints.
 
-## How to set up the database
+### How to set up the database
 
 Create a new Postgres database called `tenmo`. Run the `database/tenmo.sql` script in pgAdmin to set up the database.
 
-### Datasource
+#### Datasource
 
 A Datasource has been configured for you in `/src/resources/application.properties`. 
 
@@ -217,7 +223,7 @@ spring.datasource.username=postgres
 spring.datasource.password=postgres1
 ```
 
-### JdbcTemplate
+#### JdbcTemplate
 
 If you look in `/src/main/java/com/techelevator/dao`, you'll see `JdbcUserDao`. This is an example of how to get an instance of `JdbcTemplate` in your DAOs. If you declare a field of type `JdbcTemplate` and add it as an argument to the constructor, Spring automatically injects an instance for you:
 
@@ -233,10 +239,10 @@ public class JdbcUserDao implements UserDao {
 }
 ```
 
-## Testing
+### Testing
 
 
-### DAO integration tests
+#### DAO integration tests
 
 `com.techelevator.tenmo.dao.BaseDaoTests` has been provided for you to use as a base class for any DAO integration test. It initializes a Datasource for testing and manages rollback of database changes between tests.
 
@@ -245,7 +251,7 @@ public class JdbcUserDao implements UserDao {
 Remember that when testing, you're using a copy of the real database. The schema and data for the test database are defined in `/src/test/resources/test-data.sql`. The schema in this file matches the schema defined in `database/tenmo.sql`.
 
 
-## Authentication
+### Authentication
 
 The user registration and authentication functionality for the system has already been implemented. If you review the login code, you'll notice that after successful authentication, an instance of `AuthenticatedUser` is stored in the `currentUser` member variable of `App`. The user's authorization token—meaning JWT—can be accessed from `App` as `currentUser.getToken()`.
 
